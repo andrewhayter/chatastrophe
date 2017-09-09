@@ -9,6 +9,22 @@
 
 <body>
   <div id="root"></div>
+  <script src="/secrets.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: window.apiKey,
+      authDomain: "chatastrophe-c0741.firebaseapp.com",
+      databaseURL: "https://chatastrophe-c0741.firebaseio.com",
+      projectId: "chatastrophe-c0741",
+      storageBucket: "",
+      messagingSenderId: window.messagingSenderId
+    };
+    window.firebase = firebase;
+    firebase.initializeApp(config);
+  </script>
+
 </body>
 
 </html>
