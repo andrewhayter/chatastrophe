@@ -35,3 +35,6 @@ jspm_packages
 
 # Dont add API keys
 /public/secrets.js
+
+# OSX Junk
+.DS_Store
