@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
-import Header from './header';
+import Header from './Header';
 
 export default class ChatController extends Component {
 
