@@ -4,8 +4,35 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Chatastrophe</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <!-- iPhone 6 startup image -->
+  <link href="https://placehold.it/750x1294"
+       media="(device-width: 375px) and (device-height: 667px)
+              and (-webkit-device-pixel-ratio: 2)"
+       rel="apple-touch-startup-image">
+  <!-- iPhone 5 startup image -->
+  <link href="https://placehold.it/640x1096"
+       media="(device-width: 320px) and (device-height: 568px)
+              and (-webkit-device-pixel-ratio: 2)"
+       rel="apple-touch-startup-image">
+  <!-- iPhone < 5 retina startup image -->
+  <link href="https://placehold.it/640x920"
+       media="(device-width: 320px) and (device-height: 480px)
+              and (-webkit-device-pixel-ratio: 2)"
+       rel="apple-touch-startup-image">
+  <!-- iPhone < 5 non-retina startup image -->
+  <link href="https://placehold.it/320x460"
+       media="(device-width: 320px) and (device-height: 480px)
+              and (-webkit-device-pixel-ratio: 1)"
+       rel="apple-touch-startup-image">
+
+  <link rel="manifest" href="/assets/manifest.json">
   <link rel="shortcut icon" type="image/png" href="assets/favicon.ico"/>
+  <link rel="apple-touch-icon" href="/assets/icon.png">
+
+  <title>Chatastrophe</title>
+
 </head>
 
 <body>
@@ -25,7 +52,21 @@
     window.firebase = firebase;
     firebase.initializeApp(config);
   </script>
-
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('firebase-messaging-sw.js').then(function(registration) {
+          console.log('Registered');
+        }, function(err) {
+          console.log('service worker registration failed', err);
+        }).catch(function(err) {
+          console.log(err);
+        });
+      });
+    } else {
+      console.log('Service Workers not supported');
+    }
+  </script>
 </body>
 
 </html>

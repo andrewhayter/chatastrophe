@@ -3,9 +3,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ManifestPlugin = require('webpack-manifest-plugin');
 
 module.exports = {
-  entry: [
-    __dirname + "/src/index.js"
-  ],
+  entry: __dirname + "/src/index.js",
   output: {
     path: __dirname + "/build",
     filename: "bundle.js",
@@ -18,30 +16,16 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: [
-            'es2015',
-            'react'
-          ],
-          plugins: [
-            'react-hot-loader/babel',
-            'transform-class-properties'
-          ],
+          presets: ['es2015','react'],
+          plugins: ['react-hot-loader/babel', 'transform-class-properties'],
         }
       },
       {
         test: /\.css$/,
-        use: [
-          { loader: "style-loader" },
-          { loader: "css-loader" }
-        ]
+        use: [{ loader: "style-loader" },{ loader: "css-loader" }]
       },
       {
-        exclude: [
-          /\.html$/,
-          /\.(js|jsx)$/,
-          /\.css$/,
-          /\.json$/,
-        ],
+        exclude: [/\.html$/,/\.(js|jsx)$/, /\.css$/, /\.json$/],
         loader: "file-loader",
         options: {
           name: 'static/media/[name].[ext]',
@@ -50,7 +34,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production')
@@ -70,7 +53,7 @@ module.exports = {
         minifyJS: true,
         minifyCSS: true,
         minifyURLs: true,
-      },
+      }
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
@@ -85,5 +68,5 @@ module.exports = {
     new ManifestPlugin({
       fileName: 'asset-manifest.json',
     }),
-  ],
+  ]
 };
