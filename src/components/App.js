@@ -11,13 +11,27 @@ class App extends Component {
   state = {user: null, messages: [], messagesLoaded: false }
 
   componentDidMount() {
-    firebase.auth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({ user });
+        this.listenForMessages();
       } else {
         this.props.history.push('/login')
       }
+      this.listenForMessages();
+      this.listenForInstallBanner();
     })
+  }
+
+  listenForInstallBanner = () => {
+    window.addEventListener('beforeinstallprompt', (e) => {
+      console.log('beforeinstallprompt event fired!');
+      e.preventDefault();
+      this.deferredPrompt = e;
+    })
+  }
+
+  listenForMessages = () => {
     firebase
       .database()
       .ref('/messages')
@@ -50,6 +64,12 @@ class App extends Component {
       .database()
       .ref('/messages')
       .push(data);
+
+      if (this.deferredPrompt) {
+        this.deferredPrompt.prompt();
+        this.deferredPrompt.userChoice.then(choice => { console.log(choice) });
+        this.deferredPrompt = null;
+      }
   }
 
 
